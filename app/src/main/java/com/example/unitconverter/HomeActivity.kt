@@ -25,7 +25,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.home)
 
         initializeViews()
-
         setupClickListeners()
     }
 
@@ -78,15 +77,19 @@ class HomeActivity : AppCompatActivity() {
         cardStorage.setOnClickListener {
             navigateToConverter("Storage")
         }
-
-
     }
 
     private fun navigateToConverter(converterType: String) {
-        val intent = Intent(this, ConversionActivity::class.java)
-        intent.putExtra("CONVERTER_TYPE", converterType)
+        val intent = when (converterType) {
+            "Weight" -> Intent(this, WeightConverterActivity::class.java)
+            "Area" -> Intent(this, AreaConverterActivity::class.java)
+            "Pressure" -> Intent(this, PressureConverterActivity::class.java)
+            "Length" -> Intent(this, LengthConverterActivity::class.java)
+            "Volume" -> Intent(this, VolumeConverterActivity::class.java)
+            else -> Intent(this, ConversionActivity::class.java).apply {
+                putExtra("CONVERTER_TYPE", converterType)
+            }
+        }
         startActivity(intent)
     }
-
-
 }
