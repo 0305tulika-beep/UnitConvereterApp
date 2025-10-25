@@ -37,11 +37,13 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
-        viewBinding = true  // Optional, for easier XML access
+        viewBinding = true
+        compose = true// Optional, for easier XML access
     }
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -59,8 +61,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.gridlayout:gridlayout:1.0.0")
-
+    implementation("com.google.android.material:material:1.11.0")
     implementation ("androidx.cardview:cardview:1.0.0")
+        implementation ("com.google.android.material:material:1.9.0")
 
 
 }
