@@ -86,6 +86,9 @@ class HomeActivity : AppCompatActivity() {
             "Pressure" -> Intent(this, PressureConverterActivity::class.java)
             "Length" -> Intent(this, LengthConverterActivity::class.java)
             "Volume" -> Intent(this, VolumeConverterActivity::class.java)
+            "Speed" -> Intent(this, SpeedConverterActivity::class.java)
+            "Storage" -> Intent(this, StorageConverterActivity::class.java)
+            "Time" -> Intent(this, TimeConverterActivity::class.java)
             else -> Intent(this, ConversionActivity::class.java).apply {
                 putExtra("CONVERTER_TYPE", converterType)
             }

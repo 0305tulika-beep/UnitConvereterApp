@@ -1,4 +1,95 @@
 package com.example.unitconverter
 
-class TimeConverterActivity {
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import com.example.nectar.R
+
+class TimeConverterActivity : AppCompatActivity() {
+
+    private lateinit var etFromValue: EditText
+    private lateinit var etToValue: EditText
+    private lateinit var btnBack: AppCompatButton
+
+    private var isUpdating = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.convert_t)
+
+        initializeViews()
+        setupListeners()
+    }
+
+    private fun initializeViews() {
+        etFromValue = findViewById(R.id.etFromValue)
+        etToValue = findViewById(R.id.etToValue)
+        btnBack = findViewById(R.id.btnBack)
+    }
+
+    private fun setupListeners() {
+
+
+        etFromValue.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (isUpdating) return
+
+                val input = s.toString()
+                if (input.isEmpty()) {
+                    isUpdating = true
+                    etToValue.setText("")
+                    isUpdating = false
+                    return
+                }
+
+                val secValue = input.toDoubleOrNull()
+                if (secValue != null) {
+                    isUpdating = true
+
+                    val minValue = secValue / 60
+                    etToValue.setText(String.format("%.6f", minValue))
+                    isUpdating = false
+                }
+            }
+        })
+
+
+        etToValue.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (isUpdating) return
+
+                val input = s.toString()
+                if (input.isEmpty()) {
+                    isUpdating = true
+                    etFromValue.setText("")
+                    isUpdating = false
+                    return
+                }
+
+                val minValue = input.toDoubleOrNull()
+                if (minValue != null) {
+                    isUpdating = true
+
+                    val secValue = minValue * 60
+                    etFromValue.setText(String.format("%.4f", secValue))
+                    isUpdating = false
+                }
+            }
+        })
+
+        btnBack.setOnClickListener {
+            finish()
+        }
+    }
 }
